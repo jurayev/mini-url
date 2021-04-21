@@ -15,22 +15,22 @@ services:
     volumes:
       - redis-data:/data
 
-  shortener:
+  backend:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       #    host : container
       - "${APP_PORT}:${APP_PORT}"
-
     depends_on:
       - redis
     env_file:
       - .env
     environment:
       - REDIS_HOST=redis
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
     # Comment the line below for production
-    command: ["uvicorn", "backend.app.main:app", "--host", "${APP_HOST}", "--debug", "--port", "${APP_PORT}", "--reload-dir", "/app"]
+    command: uvicorn backend.app.main:app --host ${APP_HOST} --port ${APP_PORT} --reload-dir /app --reload
     networks:
       - internal
     volumes:
