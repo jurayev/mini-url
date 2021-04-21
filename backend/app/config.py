@@ -3,6 +3,7 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
+    API_V1: str = "/api/v1"
     APP_NAME: str = os.getenv("APP_NAME", "miniURL")
     APP_PROTOCOL: str = os.getenv("APP_PROTOCOL", "http")
     APP_HOST: str = os.getenv("APP_HOST", "0.0.0.0")

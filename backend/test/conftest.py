@@ -6,7 +6,7 @@ from fakeredis import FakeRedis, FakeServer
 from fastapi.testclient import TestClient
 
 from ..app.core.shortener import Shortener
-from ..app.dependencies import get_db
+from ..app.api.dependencies import get_db
 from ..app.main import app
 
 

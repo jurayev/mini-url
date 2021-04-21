@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
+from .api.api_v1.api import api_router
 from .config import settings
-from .endpoints.endpoints import router
 
 app = FastAPI(title=settings.APP_NAME)
 app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
-app.include_router(router, tags=["shortener"])
+app.include_router(api_router)

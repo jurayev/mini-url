@@ -2,15 +2,15 @@ import logging
 from typing import Any
 
 from fastapi import HTTPException, Depends, APIRouter, Request, status
-from fastapi.responses import RedirectResponse, HTMLResponse
+from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from redis import exceptions as dbExceptions  # noqa
 
-from ..config import settings
-from ..core.shortener import Shortener
-from ..dependencies import get_shortener
-from ..models.url import UrlIn, UrlOut
-from ..utils import validate_url
+from backend.app.api.dependencies import get_shortener
+from backend.app.config import settings
+from backend.app.core.shortener import Shortener
+from backend.app.models.url import UrlIn, UrlOut
+from backend.app.utils import validate_url
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -23,11 +23,6 @@ templates = Jinja2Templates(directory="frontend/templates")
 def display_error_response(request: Request, msg: Any, status_code: int) -> Any:
     return templates.TemplateResponse(f"errors/{status_code}.html", {"request": request, "detail": [{"msg": msg}]},
                                       status_code=status_code)
-
-
-@router.get("/", response_class=HTMLResponse)
-def home(request: Request):
-    return templates.TemplateResponse(name="index.html", context={"request": request})
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED, response_model=UrlOut)
