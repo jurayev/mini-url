@@ -12,11 +12,10 @@ _Try it out now: https://mini-url-xyz.herokuapp.com_
 
 ### Live Demo
 
-![Fyyur Demo](images/mini-url.png)
+![miniURL Demo](images/mini-url.gif)
 
-## Architecture Diagram
-### TBD
-![Architecture](images/DATA-TRANSFER.JPG)
+## Architecture Diagram For Production
+![Architecture](images/mini-url-diagram.jpg)
 
 ## Components
 All backend code base follows [PEP8 style guidelines.](https://www.python.org/dev/peps/pep-0008)
