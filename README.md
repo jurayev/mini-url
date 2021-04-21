@@ -78,4 +78,4 @@ Please make sure to update tests as appropriate and follow the PEP8 style guide.
 
 ## License
 
-The content of this repository is licensed under a [MIT License.](https://github.com/jurayev/mini-url/blob/main/LICENSE.md)
+The content of this repository is licensed under a [MIT License.](https://github.com/jurayev/mini-url/blob/main/LICENSE)
