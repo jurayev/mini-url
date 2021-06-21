@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "mini-url"
+version = "0.1.0"
+description = "Yet Another URL Shortener"
+authors = ["Yuriy Jurayev <yuriy.jurayev.d@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "3.6"
+fastapi = "^0.65.1"
+uvicorn = "^0.13.4"
+requests = "^2.25.1"
+python-dotenv = "^0.17.1"
+redis = "^3.5.3"
+Jinja2 = "^3.0.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.4"
+fakeredis = "^1.5.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

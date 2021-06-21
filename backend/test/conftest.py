@@ -16,11 +16,11 @@ def shortener_info() -> Dict:
                  "key_length": 8,
                  "key_prefix": "shortener:",
                  "retries": 10}
-    return shortener
+    return shrt
 
 
 @pytest.fixture(scope="function")
-def db() -> Generator:
+def db() -> None:
     db = FakeRedis(decode_responses=True)
     yield db
     db.close()
