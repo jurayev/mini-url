@@ -9,7 +9,7 @@ from redis import exceptions as dbExceptions  # noqa
 from backend.app.api.dependencies import get_shortener
 from backend.app.config import settings
 from backend.app.core.shortener import Shortener
-from backend.app.models.url import UrlIn, UrlOut
+from backend.app.models.url import UrlIN, UrlOut
 from backend.app.utils import validate_url
 
 logging.basicConfig(level=logging.INFO)
@@ -26,7 +26,7 @@ def display_error_response(request: Request, msg: Any, status_code: int) -> Any:
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED, response_model=UrlOut)
-def create_short_url(body: UrlIn, shortener: Shortener = Depends(get_shortener)) -> Any:
+def create_short_url(body: UrlIN, shortener: Shortener = Depends(get_shortener)) -> Any:
     try:
         validate_url(body.url)
     except ValueError as value_err:
@@ -44,13 +44,15 @@ def create_short_url(body: UrlIn, shortener: Shortener = Depends(get_shortener))
     short_url = f"{settings.MINI_URL}{short_key}"
     logger.info(f"Generated short url: {short_url}")
     url_out = {"short_url": short_url, "url": body.url}
+
     return url_out
 
 
 @router.get("/{short_key}", status_code=status.HTTP_307_TEMPORARY_REDIRECT)
-def redirect(request: Request, short_key: str, shortener: Shortener = Depends(get_shortener)) -> Any:
+def redirect(request: Request, key: str, shortener: Shortener = Depends(get_shortener)) -> Any:
     try:
-        long_url = shortener.short_to_long(short_key)
+        long_url = shortener.short_to_long(key)
+
     except dbExceptions.ConnectionError as conn_err:
         logger.error(conn_err)
         user_msg = "Database Connection couldn't be established. Try again later!"
@@ -59,4 +61,6 @@ def redirect(request: Request, short_key: str, shortener: Shortener = Depends(ge
         logger.error(key_err_msg)
         return display_error_response(request, key_err_msg, status.HTTP_404_NOT_FOUND)
     logger.info(f"Generated long url: {long_url}")
+
+
     return RedirectResponse(url=long_url)

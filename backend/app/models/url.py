@@ -5,9 +5,11 @@ class UrlBase(BaseModel):
     url: HttpUrl
 
 
-class UrlIn(UrlBase):
+class UrlIN(UrlBase):
+    pass
     pass
 
 
 class UrlOut(UrlBase):
+
     short_url: HttpUrl
